@@ -21,6 +21,8 @@ Select the new version: 1
 
 In this example, the script found the latest version `v1.0.1` and proposed three options for the new version number. Users can choose one of them, or quit the script. If the user chooses the first option, the script will add a new tag `v1.0.2` to the repository. It will also update `v1.0` and `v1` to point to the new tag.
 
+A version can also be specified using the `-v` option. For example: `./update_tags.sh -v v1.0.2`. It will break if the specified version already exists, can be used to create an initial tag, e.g. `v1.0.0` (`v0.0.0` is default).
+
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
