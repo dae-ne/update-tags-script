@@ -61,6 +61,8 @@ if [[ -z $tag ]]; then
   echo
   echo "No tags found. Using v0.0.0"
   tag="v0.0.0"
+  update_tags $tag
+  exit 0
 fi
 
 validate_tag $tag
