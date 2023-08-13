@@ -30,7 +30,7 @@ function validate_tag {
   fi
 
   echo
-  echo "Invalid version format: $tag"
+  echo "Invalid version format: $1"
   exit 1
 }
 
