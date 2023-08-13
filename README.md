@@ -19,7 +19,7 @@ Current version: v1.0.1
 Select the new version: 1
 ```
 
-In this example, the script found the latest version `v1.0.1` and proposed three options for the new version number. Users can choose one of them, or quit the script. If the user chooses the first option, the script will add a new tag `v1.0.2` to the repository. It will also update v1.0 and v1 to point to the new tag.
+In this example, the script found the latest version `v1.0.1` and proposed three options for the new version number. Users can choose one of them, or quit the script. If the user chooses the first option, the script will add a new tag `v1.0.2` to the repository. It will also update `v1.0` and `v1` to point to the new tag.
 
 ## License
 
