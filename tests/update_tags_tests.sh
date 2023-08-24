@@ -115,6 +115,42 @@ function should_bump_version_from_v1.0.0_to_v2.0.0 {
   expect_version_to_exist     $FUNCNAME v2
 }
 
+function should_bump_version_from_v1.2.3_to_v1.2.4 {
+  ${test_directory}/../update_tags.sh -v v1.2.3
+  ${test_directory}/../update_tags.sh -t patch
+
+  expect_number_of_tags_to_be $FUNCNAME 4
+  expect_version_to_exist     $FUNCNAME v1.2.3
+  expect_version_to_exist     $FUNCNAME v1.2.4
+  expect_version_to_exist     $FUNCNAME v1.2
+  expect_version_to_exist     $FUNCNAME v1
+}
+
+function should_bump_version_from_v1.2.3_to_v1.3.0 {
+  ${test_directory}/../update_tags.sh -v v1.2.3
+  ${test_directory}/../update_tags.sh -t minor
+
+  expect_number_of_tags_to_be $FUNCNAME 5
+  expect_version_to_exist     $FUNCNAME v1.2.3
+  expect_version_to_exist     $FUNCNAME v1.3.0
+  expect_version_to_exist     $FUNCNAME v1.2
+  expect_version_to_exist     $FUNCNAME v1.3
+  expect_version_to_exist     $FUNCNAME v1
+}
+
+function should_bump_version_from_v1.2.3_to_v2.0.0 {
+  ${test_directory}/../update_tags.sh -v v1.2.3
+  ${test_directory}/../update_tags.sh -t major
+
+  expect_number_of_tags_to_be $FUNCNAME 6
+  expect_version_to_exist     $FUNCNAME v1.2.3
+  expect_version_to_exist     $FUNCNAME v2.0.0
+  expect_version_to_exist     $FUNCNAME v1.2
+  expect_version_to_exist     $FUNCNAME v2.0
+  expect_version_to_exist     $FUNCNAME v1
+  expect_version_to_exist     $FUNCNAME v2
+}
+
 ################################################################################
 # run
 
@@ -122,6 +158,9 @@ test should_create_v1.0.0_version
 test should_bump_version_from_v1.0.0_to_v1.0.1
 test should_bump_version_from_v1.0.0_to_v1.1.0
 test should_bump_version_from_v1.0.0_to_v2.0.0
+test should_bump_version_from_v1.2.3_to_v1.2.4
+test should_bump_version_from_v1.2.3_to_v1.3.0
+test should_bump_version_from_v1.2.3_to_v2.0.0
 
 ################################################################################
 # cleanup
