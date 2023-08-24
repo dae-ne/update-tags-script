@@ -1,8 +1,8 @@
 # Update tags script
 
-> :warning: **this script will remove all your local tags** and replace them with tags from the remote repository.
+> :warning: **this script will remove all your local tags** and replace them with tags from a remote repository.
 
-The script simplifies updating tags in the repository. Searches for the latest version (git tag) and adds a new tag with the next version number. It lets the user choose the type of version number change (major, minor, patch).
+The script simplifies updating tags in a repository. Searches for the latest version (git tag) and adds a new tag with the next version number. It lets the user choose the type of version number change (major, minor, patch).
 
 Version number is based on [Semantic Versioning](https://semver.org/). For now works only for format `vX.Y.Z` where `X`, `Y`, and `Z` are major, minor, and patch version numbers respectively.
 
