@@ -5,7 +5,8 @@
 
 v_arg=""    # version
 t_arg=""    # type (patch, minor, major)
-l_arg=false # local (skip push)
+p_arg=false # push to remote
+f_arg=false # force push to remote
 
 ################################################################################
 # functions
@@ -22,7 +23,8 @@ function update_tags {
   echo $version
   git tag -a -m "Release $version" $version
 
-  if [[ $l_arg == false ]]; then
+  if [[ $p_arg == true ]]; then
+    echo "test"
     git push origin $version --quiet
   fi
 
@@ -34,7 +36,8 @@ function update_tags {
     echo $tag
     git tag -f -a -m "Updating tag $tag using $version" $tag
 
-    if [[ $l_arg == false ]]; then
+    if [[ $p_arg == true ]]; then
+      echo "test"
       git push origin $tag --force --no-verify --quiet
     fi
   done
@@ -55,7 +58,7 @@ function validate_tag {
 ################################################################################
 # main
 
-while getopts ":v:t:l" opt; do
+while getopts ":v:t:pf" opt; do
   case $opt in
     v)
       v_arg=$OPTARG
@@ -63,8 +66,12 @@ while getopts ":v:t:l" opt; do
     t)
       t_arg=$OPTARG
       ;;
-    l)
-      l_arg=true
+    p)
+      p_arg=true
+      ;;
+    f)
+      f_arg=true
+      p_arg=true
       ;;
     \?)
       echo "Invalid option: $OPTARG" >&2
@@ -77,10 +84,26 @@ while getopts ":v:t:l" opt; do
   esac
 done
 
+if [[ $p_arg == true && $f_arg == false ]]; then
+  echo
+  echo "This operation will remove all the local tags."
+  echo "Do you want to proceed? (y/n)"
+
+  read -n 1 -r
+  echo
+
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    echo "Proceeding..."
+  else
+    echo "Aborting..."
+    exit 1
+  fi
+fi
+
 echo
 echo "Fetching tags..."
 
-if [[ $l_arg == false ]]; then
+if [[ $p_arg == true ]]; then
   git tag | xargs git tag -d > /dev/null
   git pull --tags --quiet
 fi
