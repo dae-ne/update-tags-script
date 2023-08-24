@@ -3,6 +3,7 @@
 ################################################################################
 # variables
 
+test_directory=$(dirname "$0")
 tests_passed=0
 
 ################################################################################
@@ -70,7 +71,7 @@ function expect_version_to_exist {
 # tests
 
 function should_create_v1.0.0_version {
-  $(pwd)/update_tags.sh -v v1.0.0
+  ${test_directory}/../update_tags.sh -v v1.0.0
 
   expect_number_of_tags_to_be $FUNCNAME 3
   expect_version_to_exist     $FUNCNAME v1.0.0
@@ -79,8 +80,8 @@ function should_create_v1.0.0_version {
 }
 
 function should_bump_version_from_v1.0.0_to_v1.0.1 {
-  $(pwd)/update_tags.sh -v v1.0.0
-  $(pwd)/update_tags.sh -t patch
+  $test_directory/../update_tags.sh -v v1.0.0
+  $test_directory/../update_tags.sh -t patch
 
   expect_number_of_tags_to_be $FUNCNAME 4
   expect_version_to_exist     $FUNCNAME v1.0.0
@@ -90,8 +91,8 @@ function should_bump_version_from_v1.0.0_to_v1.0.1 {
 }
 
 function should_bump_version_from_v1.0.0_to_v1.1.0 {
-  $(pwd)/update_tags.sh -v v1.0.0
-  $(pwd)/update_tags.sh -t minor
+  $test_directory/../update_tags.sh -v v1.0.0
+  $test_directory/../update_tags.sh -t minor
 
   expect_number_of_tags_to_be $FUNCNAME 5
   expect_version_to_exist     $FUNCNAME v1.0.0
@@ -102,8 +103,8 @@ function should_bump_version_from_v1.0.0_to_v1.1.0 {
 }
 
 function should_bump_version_from_v1.0.0_to_v2.0.0 {
-  $(pwd)/update_tags.sh -v v1.0.0
-  $(pwd)/update_tags.sh -t major
+  $test_directory/../update_tags.sh -v v1.0.0
+  $test_directory/../update_tags.sh -t major
 
   expect_number_of_tags_to_be $FUNCNAME 6
   expect_version_to_exist     $FUNCNAME v1.0.0
