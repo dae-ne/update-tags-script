@@ -19,10 +19,10 @@ jobs:
         run: |
           git config user.email '${GITHUB_ACTOR_ID}+${GITHUB_ACTOR}@users.noreply.github.com'
           git config user.name '${GITHUB_ACTOR}'
-      - name: Add permissions to test script
-        run: chmod +x ./tests/update_tags_tests.sh
-      - name: Add permissions to script
-        run: chmod +x ./update_tags.sh
+      - name: Add permissions
+        run: |
+          chmod +x ./tests/update_tags_tests.sh
+          chmod +x ./update_tags.sh
       - name: Run tests
         run: ./tests/update_tags_tests.sh
         shell: bash
