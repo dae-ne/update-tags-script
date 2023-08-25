@@ -24,7 +24,6 @@ function update_tags {
   git tag -a -m "Release $version" $version
 
   if [[ $p_arg == true ]]; then
-    echo "test"
     git push origin $version --quiet
   fi
 
@@ -33,11 +32,9 @@ function update_tags {
   for i in {1..2}
   do
     tag="${tag%.*}"
-    echo $tag
     git tag -f -a -m "Updating tag $tag using $version" $tag
 
     if [[ $p_arg == true ]]; then
-      echo "test"
       git push origin $tag --force --no-verify --quiet
     fi
   done
@@ -186,6 +183,7 @@ select opt in $new_version_patch $new_version_minor $new_version_major quit; do
       break
       ;;
     quit)
+      break
       ;;
     *)
       echo "Invalid option $REPLY"
