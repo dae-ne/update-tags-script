@@ -36,8 +36,8 @@ jobs:
       - name: Run script
         run: |
           if [ -z "${{ github.event.inputs.version }}" ]; then
-            update_tags.sh -f -t ${{ github.event.inputs.update-type }}
+            ./update_tags.sh -f -t ${{ github.event.inputs.update-type }}
           else
-            update_tags.sh -f -v ${{ github.event.inputs.version }} -t ${{ github.event.inputs.update-type }}
+            ./update_tags.sh -f -v ${{ github.event.inputs.version }} -t ${{ github.event.inputs.update-type }}
           fi
         shell: bash
