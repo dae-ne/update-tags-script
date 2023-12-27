@@ -1,0 +1,43 @@
+name: Update tags
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'specific version'
+        required: false
+        type: string
+      update-type:
+        description: 'version update type'
+        required: false
+        default: 'patch'
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+
+jobs:
+  update-tags:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+          token: ${{ secrets.PAT_TOKEN }}
+      - name: Set up Git
+        run: |
+          git config user.email '${GITHUB_ACTOR_ID}+${GITHUB_ACTOR}@users.noreply.github.com'
+          git config user.name '${GITHUB_ACTOR}'
+      - name: Add permissions
+        run: |
+          chmod +x update_tags.sh
+      - name: Run script
+        run: |
+          if [ -z "${{ github.event.inputs.version }}" ]; then
+            update_tags.sh -f -t ${{ github.event.inputs.update-type }}
+          else
+            update_tags.sh -f -v ${{ github.event.inputs.version }} -t ${{ github.event.inputs.update-type }}
+          fi
+        shell: bash

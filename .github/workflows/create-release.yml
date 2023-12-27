@@ -1,0 +1,23 @@
+name: Create release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build:
+    name: Create release
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Create Release
+        id: create_release
+        uses: dae-ne/create-release@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag-name: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
